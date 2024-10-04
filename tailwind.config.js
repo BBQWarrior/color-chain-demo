@@ -6,8 +6,17 @@ export default {
     "./node_modules/@shadcn/ui/**/*.{js,jsx,ts,tsx}", // Add this line
   ],
   theme: {
+    screens: {
+      'sm': '576px',
+      'md': '768px',
+      'lg': '992px',
+      'xl': '1200px',
+      'xxl': '1400px',
+    },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/container-queries'),
+  ],
 }
 
