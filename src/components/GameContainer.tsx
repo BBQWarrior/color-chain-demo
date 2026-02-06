@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { GameState, RoundResult } from '../types';
 import { generateRandomColor, calcMiddleColor, calculateScore } from '../utils';
 import { ColorDisplay, ColorPicker, ResultsDisplay, GameControls } from './';
@@ -15,6 +15,22 @@ export const GameContainer = () => {
     totalScore: 0,
     history: [],
   });
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track mouse movement
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const startGame = useCallback(() => {
     const colorA = generateRandomColor();
@@ -97,17 +113,24 @@ export const GameContainer = () => {
   }, []);
 
   return (
-    <div className={`h-screen w-screen transition-all duration-1000 ${
-      gameState.status === 'idle' ? 'animated-background' : 'bg-gray-100'
-    }`}>
-      <div className="container mx-auto px-4 py-6 h-full flex flex-col">
+    <div ref={containerRef} className="h-screen w-screen animated-background">
+      {/* Cursor Follower */}
+      <div
+        className="cursor-follower"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+        }}
+      />
+      
+      <div className="container mx-auto px-4 py-6 h-full flex flex-col relative z-10">
         {/* Header */}
         <div className="text-center mb-4 flex-shrink-0">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-1">
             Color Chain
           </h1>
           <p className="text-gray-600 text-sm">
-            Guess the perfect middle color between two random colors!
+            Guess perfect middle color between two random colors!
           </p>
         </div>
 

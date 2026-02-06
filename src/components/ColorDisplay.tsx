@@ -13,7 +13,7 @@ export const ColorDisplay = ({ colorA, colorB, gameState, targetColor, guessColo
   const showResults = gameState === 'scored';
 
   return (
-    <div className="color-display flex flex-col gap-3 p-4 bg-white rounded-xl shadow-lg">
+    <div className="color-display flex flex-col gap-3 p-4 bg-gray-900 rounded-xl shadow-lg">
       <div className="flex items-center justify-between gap-3">
         {/* Color A */}
         <div className="flex flex-col items-center gap-1">

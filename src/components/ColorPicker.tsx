@@ -12,8 +12,7 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
   const [selectedHue, setSelectedHue] = useState(0);
   const [selectedSaturation, setSelectedSaturation] = useState(50);
   const [lightness, setLightness] = useState(50);
-  const [selectedColor, setSelectedColor] = useState<Color | null>(initialColor || null);
-  
+  const [selectedColor, setSelectedColor] = useState<Color | null>(initialColor || null);  
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +23,7 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
     }
   }, [initialColor, selectedColor]);
 
-  // Draw the gradient canvas
+  // Draw the hue/saturation gradient once (at lightness 50%)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -35,16 +34,16 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
     const width = canvas.width;
     const height = canvas.height;
 
-    // Create gradient: hue on x-axis, saturation on y-axis
+    // Create gradient: hue on x-axis, saturation on y-axis (draw once)
     for (let x = 0; x < width; x++) {
       const hue = (x / width) * 360;
       for (let y = 0; y < height; y++) {
         const saturation = 100 - (y / height) * 100;
-        ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        ctx.fillStyle = `hsl(${hue}, ${saturation}%, 50%)`;
         ctx.fillRect(x, y, 1, 1);
       }
     }
-  }, [lightness]);
+  }, []);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (disabled) return;
@@ -91,9 +90,12 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
           height={300}
           onClick={handleCanvasClick}
           className={`w-full h-full cursor-crosshair rounded-lg shadow-lg ${
-            disabled ? 'opacity-50 cursor-not-allowed' : ''
+            disabled ? 'cursor-not-allowed' : ''
           }`}
-          style={{ minHeight: '200px' }}
+          style={{ 
+            minHeight: '200px',
+            filter: `brightness(${lightness * 2}%)`,
+          }}
         />
         {selectedColor && (
           <div

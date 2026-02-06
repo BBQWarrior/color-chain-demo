@@ -1,14 +1,131 @@
-/* Animated Background for Idle State */
-@keyframes colorShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Cursor Follower */
+@keyframes cursorPulse {
+  0% {
+    box-shadow: 0 0 60px 30px rgba(238, 119, 82, 0.6);
+  }
+  20% {
+    box-shadow: 0 0 60px 30px rgba(231, 60, 126, 0.6);
+  }
+  40% {
+    box-shadow: 0 0 60px 30px rgba(35, 166, 213, 0.6);
+  }
+  60% {
+    box-shadow: 0 0 60px 30px rgba(35, 213, 171, 0.6);
+  }
+  80% {
+    box-shadow: 0 0 60px 30px rgba(255, 107, 107, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 60px 30px rgba(238, 119, 82, 0.6);
+  }
 }
 
+.cursor-follower {
+  position: fixed;
+  width: 0;
+  height: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 1;
+  animation: cursorPulse 6s ease-in-out infinite;
+}
+
+/* Black Background */
 .animated-background {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) !important;
-  background-size: 400% 400% !important;
-  animation: colorShift 15s ease infinite !important;
+  background-color: #000 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Dark Theme UI Elements */
+.color-display,
+.results-display {
+  background-color: rgba(20, 20, 20, 0.85) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.game-controls {
+  background-color: transparent !important;
+}
+
+/* Dark Theme Text */
+.color-display h2,
+.results-display h2,
+.results-display h3,
+.color-display span,
+.results-display span,
+.color-display p,
+.results-display p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.color-display span.text-gray-700,
+.results-display span.text-gray-700 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.color-display span.text-gray-600,
+.results-display span.text-gray-600,
+.color-display span.text-gray-500,
+.results-display span.text-gray-500 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Dark Theme Table */
+.results-display table {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.results-display th {
+  color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: transparent !important;
+}
+
+.results-display td {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.results-display tr:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Dark Theme Score Cards */
+.results-display .bg-blue-50,
+.results-display .bg-green-50,
+.results-display .bg-purple-50 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.results-display .text-blue-600,
+.results-display .text-green-600,
+.results-display .text-purple-600 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.results-display .text-blue-800,
+.results-display .text-green-800,
+.results-display .text-purple-800 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Dark Theme Buttons */
+.game-controls button {
+  border: none !important;
+}
+
+/* Dark Theme Header */
+.color-display .border-gray-200,
+.results-display .border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.color-display .border-gray-300,
+.results-display .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Color Picker Styles */
