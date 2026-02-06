@@ -97,22 +97,24 @@ export const GameContainer = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen transition-all duration-1000 ${
+    <div className={`h-screen w-screen transition-all duration-1000 ${
       gameState.status === 'idle' ? 'animated-background' : 'bg-gray-100'
     }`}>
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-2">
+      <div className="container mx-auto px-4 py-6 h-full flex flex-col">
+        {/* Header */}
+        <div className="text-center mb-4 flex-shrink-0">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-1">
             Color Chain
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-sm">
             Guess the perfect middle color between two random colors!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content - Fit to screen */}
+        <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
           {/* Left Column: Game Area */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="flex-1 flex flex-col gap-3 min-h-0">
             <ColorDisplay
               colorA={gameState.colorA}
               colorB={gameState.colorB}
@@ -152,7 +154,7 @@ export const GameContainer = () => {
           </div>
 
           {/* Right Column: Results */}
-          <div className="lg:col-span-1">
+          <div className="lg:w-72 flex-shrink-0 min-h-0">
             <ResultsDisplay
               currentScore={gameState.currentScore}
               bestScore={gameState.bestScore}

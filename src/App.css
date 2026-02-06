@@ -6,9 +6,9 @@
 }
 
 .animated-background {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: colorShift 15s ease infinite;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) !important;
+  background-size: 400% 400% !important;
+  animation: colorShift 15s ease infinite !important;
 }
 
 /* Color Picker Styles */
@@ -25,8 +25,8 @@
 .color-picker input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #4f46e5;
   cursor: pointer;
@@ -35,8 +35,8 @@
 }
 
 .color-picker input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #4f46e5;
   cursor: pointer;
@@ -46,17 +46,17 @@
 
 /* Custom Scrollbar for History */
 .results-display::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .results-display::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .results-display::-webkit-scrollbar-thumb {
   background: #c1c1c1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .results-display::-webkit-scrollbar-thumb:hover {
@@ -71,7 +71,7 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .color-picker canvas {
-    height: 300px;
+    height: 250px;
   }
 }
 
@@ -87,4 +87,23 @@
 .results-display button:focus-visible {
   outline: 2px solid #4f46e5;
   outline-offset: 2px;
+}
+
+/* Prevent body scroll when game is active */
+body {
+  overflow: hidden !important;
+}
+
+/* Ensure full viewport height */
+html, body {
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure root takes full height */
+#root {
+  height: 100vh !important;
+  width: 100vw !important;
+  overflow: hidden !important;
 }

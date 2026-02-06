@@ -13,16 +13,15 @@ export const ColorDisplay = ({ colorA, colorB, gameState, targetColor, guessColo
   const showResults = gameState === 'scored';
 
   return (
-    <div className="color-display flex flex-col gap-6 p-6 bg-white rounded-xl shadow-lg">
-      <div className="flex items-center justify-between gap-4">
+    <div className="color-display flex flex-col gap-3 p-4 bg-white rounded-xl shadow-lg">
+      <div className="flex items-center justify-between gap-3">
         {/* Color A */}
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-1">
           <div
-            className="w-24 h-24 rounded-lg border-2 border-gray-300 shadow-md"
+            className="w-16 h-16 rounded-lg border-2 border-gray-300 shadow-md"
             style={{ backgroundColor: rgbToCss(colorA) }}
           />
-          <span className="text-sm font-medium text-gray-700">Color A</span>
-          <span className="text-xs text-gray-500 font-mono">{rgbToCss(colorA)}</span>
+          <span className="text-xs font-medium text-gray-700">A</span>
         </div>
 
         {/* Gradient Line */}
@@ -31,40 +30,37 @@ export const ColorDisplay = ({ colorA, colorB, gameState, targetColor, guessColo
         }} />
 
         {/* Color B */}
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-1">
           <div
-            className="w-24 h-24 rounded-lg border-2 border-gray-300 shadow-md"
+            className="w-16 h-16 rounded-lg border-2 border-gray-300 shadow-md"
             style={{ backgroundColor: rgbToCss(colorB) }}
           />
-          <span className="text-sm font-medium text-gray-700">Color B</span>
-          <span className="text-xs text-gray-500 font-mono">{rgbToCss(colorB)}</span>
+          <span className="text-xs font-medium text-gray-700">B</span>
         </div>
       </div>
 
       {/* Results Section */}
       {showResults && targetColor && guessColor && (
-        <div className="flex items-center justify-center gap-8 pt-4 border-t border-gray-200">
+        <div className="flex items-center justify-center gap-4 pt-2 border-t border-gray-200">
           {/* Target Color */}
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <div
-              className="w-20 h-20 rounded-lg border-2 border-green-500 shadow-md"
+              className="w-14 h-14 rounded-lg border-2 border-green-500 shadow-md"
               style={{ backgroundColor: rgbToCss(targetColor) }}
             />
-            <span className="text-sm font-medium text-green-600">Target</span>
-            <span className="text-xs text-gray-500 font-mono">{rgbToCss(targetColor)}</span>
+            <span className="text-xs font-medium text-green-600">Target</span>
           </div>
 
           {/* VS */}
-          <div className="text-2xl font-bold text-gray-400">VS</div>
+          <div className="text-lg font-bold text-gray-400">VS</div>
 
           {/* Guess Color */}
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <div
-              className="w-20 h-20 rounded-lg border-2 border-blue-500 shadow-md"
+              className="w-14 h-14 rounded-lg border-2 border-blue-500 shadow-md"
               style={{ backgroundColor: rgbToCss(guessColor) }}
             />
-            <span className="text-sm font-medium text-blue-600">Your Guess</span>
-            <span className="text-xs text-gray-500 font-mono">{rgbToCss(guessColor)}</span>
+            <span className="text-xs font-medium text-blue-600">Guess</span>
           </div>
         </div>
       )}

@@ -83,21 +83,21 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
   };
 
   return (
-    <div ref={containerRef} className="color-picker flex flex-col items-center gap-4">
-      <div className="relative w-full">
+    <div ref={containerRef} className="color-picker flex flex-col items-center gap-2 flex-1 min-h-0">
+      <div className="relative w-full flex-1 min-h-0">
         <canvas
           ref={canvasRef}
           width={600}
-          height={400}
+          height={300}
           onClick={handleCanvasClick}
-          className={`w-full h-auto cursor-crosshair rounded-lg shadow-lg ${
+          className={`w-full h-full cursor-crosshair rounded-lg shadow-lg ${
             disabled ? 'opacity-50 cursor-not-allowed' : ''
           }`}
-          style={{ maxWidth: '100%' }}
+          style={{ minHeight: '200px' }}
         />
         {selectedColor && (
           <div
-            className="absolute w-4 h-4 rounded-full border-2 border-white shadow-md transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            className="absolute w-3 h-3 rounded-full border-2 border-white shadow-md transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{
               left: `${(selectedHue / 360) * 100}%`,
               top: `${100 - selectedSaturation}%`,
@@ -107,8 +107,8 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
         )}
       </div>
       
-      <div className="w-full flex flex-col gap-2">
-        <label className="text-sm font-medium text-gray-700">Lightness: {lightness}%</label>
+      <div className="w-full flex items-center gap-3 px-2">
+        <span className="text-xs font-medium text-gray-700 whitespace-nowrap">Lightness</span>
         <input
           type="range"
           min="0"
@@ -116,20 +116,18 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
           value={lightness}
           onChange={handleLightnessChange}
           disabled={disabled}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          className="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
+        <span className="text-xs text-gray-600 font-mono whitespace-nowrap">{lightness}%</span>
       </div>
 
       {selectedColor && (
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-gray-700">Selected:</span>
+        <div className="flex items-center gap-2 px-2">
+          <span className="text-xs font-medium text-gray-700">Selected:</span>
           <div
-            className="w-16 h-16 rounded-lg border-2 border-gray-300 shadow-md"
+            className="w-10 h-10 rounded border border-gray-300 shadow-sm"
             style={{ backgroundColor: rgbToCss(selectedColor) }}
           />
-          <span className="text-sm text-gray-600 font-mono">
-            {rgbToCss(selectedColor)}
-          </span>
         </div>
       )}
     </div>
