@@ -1,42 +1,90 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Animated Background for Idle State */
+@keyframes colorShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.animated-background {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: colorShift 15s ease infinite;
 }
 
-@keyframes logo-spin { 
-  from {
-    transform: rotate(0deg);
+/* Color Picker Styles */
+.color-picker canvas {
+  touch-action: none;
+}
+
+.color-picker input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right, #000, #fff);
+}
+
+.color-picker input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.color-picker input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Scrollbar for History */
+.results-display::-webkit-scrollbar {
+  width: 8px;
+}
+
+.results-display::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.results-display::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.results-display::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Button Hover Effects */
+.game-controls button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .color-picker canvas {
+    height: 300px;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Smooth Transitions */
+.color-display,
+.results-display,
+.game-controls {
+  transition: all 0.3s ease;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* Focus States for Accessibility */
+.game-controls button:focus-visible,
+.results-display button:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
 }
