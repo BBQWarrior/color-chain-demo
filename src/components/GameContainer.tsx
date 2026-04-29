@@ -4,16 +4,21 @@ import { generateRandomColor, calcMiddleColor, calculateScore } from '../utils';
 import { ColorDisplay, ColorPicker, ResultsDisplay, GameControls } from './';
 
 export const GameContainer = () => {
-  const [gameState, setGameState] = useState<GameState>({
-    status: 'idle',
-    colorA: generateRandomColor(),
-    colorB: generateRandomColor(),
-    targetColor: calcMiddleColor(generateRandomColor(), generateRandomColor()),
-    guessColor: null,
-    currentScore: 0,
-    bestScore: 0,
-    totalScore: 0,
-    history: [],
+  const [gameState, setGameState] = useState<GameState>(() => {
+    const initialColorA = generateRandomColor();
+    const initialColorB = generateRandomColor();
+
+    return {
+      status: 'idle',
+      colorA: initialColorA,
+      colorB: initialColorB,
+      targetColor: calcMiddleColor(initialColorA, initialColorB),
+      guessColor: null,
+      currentScore: 0,
+      bestScore: 0,
+      totalScore: 0,
+      history: [],
+    };
   });
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -55,6 +60,8 @@ export const GameContainer = () => {
     }));
   }, []);
 
+  const MAX_HISTORY_ENTRIES = 100;
+
   const submitGuess = useCallback(() => {
     if (!gameState.guessColor) return;
 
@@ -77,9 +84,9 @@ export const GameContainer = () => {
       currentScore: score,
       bestScore: newBestScore,
       totalScore: newTotalScore,
-      history: [...prev.history, roundResult],
+      history: [...prev.history, roundResult].slice(-MAX_HISTORY_ENTRIES),
     }));
-  }, [gameState.colorA, gameState.colorB, gameState.targetColor, gameState.guessColor, gameState.bestScore, gameState.totalScore, gameState.history]);
+  }, [gameState.colorA, gameState.colorB, gameState.targetColor, gameState.guessColor, gameState.bestScore, gameState.totalScore]);
 
   const playAgain = useCallback(() => {
     startGame();
@@ -90,18 +97,16 @@ export const GameContainer = () => {
     const colorB = generateRandomColor();
     const targetColor = calcMiddleColor(colorA, colorB);
 
-    setGameState({
+    setGameState(prev => ({
+      ...prev,
       status: 'playing',
       colorA,
       colorB,
       targetColor,
       guessColor: null,
       currentScore: 0,
-      bestScore: gameState.bestScore,
-      totalScore: gameState.totalScore,
-      history: gameState.history,
-    });
-  }, [gameState.bestScore, gameState.totalScore, gameState.history]);
+    }));
+  }, []);
 
   const clearHistory = useCallback(() => {
     setGameState(prev => ({
