@@ -1,5 +1,7 @@
 import { RoundResult } from '../types';
 
+const MAX_HISTORY_ENTRIES = 100;
+
 interface ResultsDisplayProps {
   currentScore: number;
   bestScore: number;
@@ -42,7 +44,10 @@ export const ResultsDisplay = ({ currentScore, bestScore, totalScore, history, o
       {/* History */}
       {history.length > 0 && (
         <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
-          <h3 className="text-xs font-semibold text-gray-700 mb-2 flex-shrink-0">History</h3>
+          <div className="flex items-center justify-between mb-2 flex-shrink-0">
+            <h3 className="text-xs font-semibold text-gray-700">History</h3>
+            <span className="text-[10px] text-gray-500">Showing last {MAX_HISTORY_ENTRIES}</span>
+          </div>
           <div className="flex-1 overflow-y-auto">
             <table className="w-full text-xs">
               <thead className="sticky top-0 bg-transparent">

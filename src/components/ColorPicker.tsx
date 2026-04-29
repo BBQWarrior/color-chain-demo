@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Color } from '../types';
-import { hslToRgb, rgbToCss } from '../utils';
+import { hslToRgb, rgbToCss, rgbToHsl } from '../utils';
 
 interface ColorPickerProps {
   onColorSelect: (color: Color) => void;
@@ -16,12 +16,16 @@ export const ColorPicker = ({ onColorSelect, disabled = false, initialColor }: C
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Initialize from initialColor if provided
+  // Synchronize picker state from external color
   useEffect(() => {
-    if (initialColor && !selectedColor) {
-      setSelectedColor(initialColor);
-    }
-  }, [initialColor, selectedColor]);
+    if (!initialColor) return;
+
+    const { h, s, l } = rgbToHsl(initialColor);
+    setSelectedHue(h);
+    setSelectedSaturation(s);
+    setLightness(l);
+    setSelectedColor(initialColor);
+  }, [initialColor]);
 
   // Draw the hue/saturation gradient once (at lightness 50%)
   useEffect(() => {
